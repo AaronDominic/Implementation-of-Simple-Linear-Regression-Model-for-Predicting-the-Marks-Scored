@@ -1,72 +1,80 @@
 # Implementation-of-Simple-Linear-Regression-Model-for-Predicting-the-Marks-Scored
 
 ## AIM:
-To write a program to implement the linear regression using gradient descent.
-
+To write a program to predict the marks scored by a student using the simple linear regression model.
 ## Equipments Required:
 1. Hardware – PCs
-2. Anaconda – Python 3.7 Installation / Moodle-Code Runner
+2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1. Import the packages.
-2. Read the file with every datas.
-3. Assign column hours to x, and column scores to y.
-4. Train the model with the test data.
-5. Print the predicted values.
-6. Plot the graph for hours vs scores ( with training and testings datas)
-7. End
-
+#### 1.Import the standard Libraries. 
+#### 2.Set variables for assigning dataset values. 
+#### 3.Import linear regression from sklearn. 
+#### 4.Assign the points for representing in the graph. 
+#### 5.Predict the regression for marks by using the representation of the graph. 
+#### 6.Compare the graphs and hence we obtained the linear regression for the given datas.
 ## Program:
-```
-/*
-Program to implement the linear regression using gradient descent.
-Developed by: Aaron Domininc
-RegisterNumber:  212221040001
-*/
-
-import numpy as np
+### Kavinraja D(212222240047)
+```py
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-dataset=pd.read_csv("student_scores (2).csv")
-dataset.head()
-X=dataset.iloc[:,:-1].values#assigning column hours to x 
-Y=dataset.iloc[:,1].values#assigning column scores to y
-print(X)
-print(Y)
+from sklearn.metrics import mean_absolute_error,mean_squared_error
+df=pd.read_csv('student_scores.csv')
+print(df)
+df.head(0)
+df.tail(0)
+print(df.head())
+print(df.tail())
+x = df.iloc[:,:-1].values
+print(x)
+y = df.iloc[:,1].values
+print(y)
 from sklearn.model_selection import train_test_split
-X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=1/3,random_state=0)
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=1/3,random_state=0)
 from sklearn.linear_model import LinearRegression
-regressor=LinearRegression()
-regressor.fit(X_train,Y_train)
-y_pred=regressor.predict(X_test)
-plt.scatter(X_train,Y_train,color='green')
-plt.plot(X_train,regressor.predict(X_train),color='brown')
-plt.title("hours vs scores(Training set)")
-plt.xlabel("hours")
-plt.ylabel("scores")
+regressor = LinearRegression()
+regressor.fit(x_train,y_train)
+y_pred = regressor.predict(x_test)
+print(y_pred)
+print(y_test)
+#Graph plot for training data
+plt.scatter(x_train,y_train,color='black')
+plt.plot(x_train,regressor.predict(x_train),color='blue')
+plt.title("Hours vs Scores(Training set)")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
 plt.show()
-y_pred=regressor.predict(X_test)
-plt.scatter(X_test,Y_test,color='green')
-plt.plot(X_test,regressor.predict(X_test),color='blue')
-plt.title("hours vs scores(Testing set)")
-plt.xlabel("hours")
-plt.ylabel("scores")
+#Graph plot for test data
+plt.scatter(x_test,y_test,color='black')
+plt.plot(x_train,regressor.predict(x_train),color='red')
+plt.title("Hours vs Scores(Testing set)")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
 plt.show()
-dataset.tail()
-
+mse=mean_absolute_error(y_test,y_pred)
+print('MSE = ',mse)
+mae=mean_absolute_error(y_test,y_pred)
+print('MAE = ',mae)
+rmse=np.sqrt(mse)
+print("RMSE= ",rmse)
 ```
-
 ## Output:
-#### DATA HEAD
-![linear regression using gradient descent](https://github.com/vijayganeshn96/Implementation-of-Linear-Regression-Using-Gradient-Descent/blob/main/data%20head.png)
-#### ASSIGNED VALUE FOR X AND Y
-![linear regression using gradient descent](https://github.com/vijayganeshn96/Implementation-of-Linear-Regression-Using-Gradient-Descent/blob/main/assign.png)
-#### GRAPH 1
-![linear regression using gradient descent](https://github.com/vijayganeshn96/Implementation-of-Linear-Regression-Using-Gradient-Descent/blob/main/graph%201.png)
-#### GRAPH 2
-![linear regression using gradient descent](https://github.com/vijayganeshn96/Implementation-of-Linear-Regression-Using-Gradient-Descent/blob/main/graph%202.png)
-#### DATA TAIL
-![linear regression using gradient descent](https://github.com/vijayganeshn96/Implementation-of-Linear-Regression-Using-Gradient-Descent/blob/main/data%20tail.png)
-
+### Dataset
+![output](./images/dataset.png)
+### Head Values
+![output](./images/head.png)
+### Tail Values
+![output](./images/tail.png)
+### X and Y values
+![output](./images/xyvalues.png)
+### Predication values of X and Y
+![output](./images/predict%20.png)
+### MSE,MAE and RMSE
+![output](./images/values.png)
+### Training Set
+![output](./images/train.png)
+### Testing Set
+![output](./images/test.png)
 ## Result:
-Thus the program to implement the linear regression using gradient descent is written and verified using python programming.
+Thus the program to implement the simple linear regression model for predicting the marks scored is written and verified using python programming.
